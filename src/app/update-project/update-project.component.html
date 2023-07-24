@@ -1,0 +1,43 @@
+<mat-dialog-content #dialogRef>
+<ng-container>
+    <div class="row">
+        <div class="col">
+            <mat-form-field appearance="fill">
+                <mat-label>{{ projectFields.username.label }}</mat-label>
+                <input matInput [(ngModel)]="projectFields.username.model" [ngModelOptions]="{standalone: true}" objectName="projectFields.objectName.model" placeholder="" >
+                <button mat-button *ngIf="projectFields.username.model" matSuffix mat-icon-button aria-label="Clear" (click)="projectFields.username.model = ''"  [hidden]="!isButtonVis">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-form-field appearance="fill">
+                <mat-label>{{ projectFields.Job.label }}</mat-label>
+                <input matInput [(ngModel)]="projectFields.Job.model" [ngModelOptions]="{standalone: true}" Job="projectFields.Job.model" placeholder="" >
+                <button mat-button *ngIf="projectFields.Job.model" matSuffix mat-icon-button aria-label="Clear" (click)="projectFields.Job.model = ''"  [hidden]="!isButtonVis">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-form-field appearance="fill">
+                <mat-label>{{ projectFields.Manufacturer.label }}</mat-label>
+                <input matInput [(ngModel)]="projectFields.Manufacturer.model" [ngModelOptions]="{standalone: true}" Manufacturer="projectFields.Manufacturer.model" placeholder="" >
+                <button mat-button *ngIf="projectFields.Manufacturer.model" matSuffix mat-icon-button aria-label="Clear" (click)="projectFields.Manufacturer.model = ''"  [hidden]="!isButtonVis">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-form-field appearance="fill">
+                <mat-label>{{ projectFields.Aircraft.label }}</mat-label>
+                <input  matInput [(ngModel)]="projectFields.Aircraft.model" [ngModelOptions]="{standalone: true}" Aircraft="projectFields.Aircraft.model" placeholder="">
+                <button mat-button *ngIf="projectFields.Aircraft.model"  matSuffix mat-icon-button aria-label="Clear" (click)="projectFields.Aircraft.model = ''" [hidden]="!isButtonVis">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+</div>
+</ng-container>
+</mat-dialog-content>
+<button class="btn btn-secondary" mat-button (click)="saveData()">Save Details</button>
