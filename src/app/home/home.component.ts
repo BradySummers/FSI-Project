@@ -89,44 +89,10 @@ export class HomeComponent {
       }
     }
   ];
-  boardFields: IBoardObject[] = [{
-    index: 0,
-    boardName:{
-      label: 'Board Name',
-      model: '',
-      placeholder: '',
-      disabled: false
-    },
-    drawNumber: {
-      label: 'Drawing Number',
-      model: '',
-      placeholder: '',
-      disabled: false
-    },
-    updateRate: {
-      label: 'Update Rate',
-      model: '',
-      placeholder: '',
-      disabled: false
-    },
-    hardware: {
-      label: 'Hardware',
-      model: '',
-      placeholder: '',
-      disabled: false
-    },
-    comment: {
-      label: 'Comment',
-      model: '',
-      placeholder: '',
-      disabled: false
-    },
-    variables: [],
-    disabled: true
-  }];
+  boardFields: IBoardObject[] = [];
 
   // the board we're working with.
-  board = this.boardFields[this.i];
+  board = this.dataService.data.boards[this.dataService.data.current_board];
 
   constructor(
     public dialog: MatDialog,
@@ -135,10 +101,21 @@ export class HomeComponent {
 
   saveData(): void {
     if (this.projectFields.length > 0) {
-      const username = this.projectFields[0].username.model;
-      const jsonData: string = JSON.stringify({ username });
+      // capture data
+      const userName = this.projectFields[0].username.model;
+      const jobNumber = this.projectFields[0].Job;
+      const manufacturer = this.projectFields[0].Manufacturer;
+      const aircraft = this.projectFields[0].Aircraft;
+
+      this.projectFields.forEach((x)=>console.log(x));
+
+      const jsonData: string = JSON.stringify({ userName });
       localStorage.setItem('data', jsonData);
-      console.log('Saved username:', username);
+      // display saved data
+      console.log('Saved User Name:', userName);
+      console.log('Saved Job:', jobNumber);
+      console.log('Saved Manufacturer:', manufacturer);
+      console.log('Saved Aircraft:', aircraft);
     }
   }
   
@@ -161,6 +138,7 @@ export class HomeComponent {
   }
 
   openAddNewBoard(): void {
+    console.log('BJ was here - open add new board.');
     const dialogRef = this.dialog.open(NewBoardComponent, {
       width: '900px'
     });
@@ -171,6 +149,7 @@ export class HomeComponent {
   }
 
   updateProject(): void {
+    console.log('BJ was here - update project');
     const dialogRef = this.dialog.open(UpdateProjectComponent, {
       data: (JSON.parse(JSON.stringify(this.projectFields[0])))
     });
@@ -184,18 +163,33 @@ export class HomeComponent {
   }
 
   updateBoard(): void {
+      // capture data
+      const boardName = this.boardFields[0].boardName;
+      const drawingNumber = this.boardFields[0].drawNumber;
+      const updateRate = this.boardFields[0].updateRate;
+      const hardwareVersion = this.boardFields[0].hardware;
+      const comment = this.boardFields[0].comment;
+
+      this.boardFields.forEach((x)=>console.log(x));
+
     const dialogRef = this.dialog.open(UpdateBoardComponent, {
-      data: (JSON.parse(JSON.stringify(this.boardFields[this.i])))
+      data: (JSON.parse(JSON.stringify(this.boardFields[0])))
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result.boardName){
-      this.boardFields[this.i] = result
+      this.boardFields[0] = result
       }
 
+      console.log('Saved Board Name"', boardName);
+      console.log('Saved Drawing Number:', drawingNumber);
+      console.log('Saved Update Rate:', updateRate);
+      console.log('Saved Hardware Version:', hardwareVersion);
+      console.log('Saved Comment:', comment);
     })
   }
 
   createBoard(): void {
+    console.log('BJ was here - create board.');
     let index = this.dataService.data.boards.length;
     this.boardFields.push({
       index: index,
@@ -312,8 +306,9 @@ export class HomeComponent {
       }
     });
   }
-
+  // called when "clear variables" button is pressed
   clearFields(): void {
+    console.log('BJ was here - clear fields.');
     this. dataService.data.boards[this.dataService.data.current_board].variables.forEach((variable) => {
       variable.objectName.model = '';
       variable.drawingNumber.model = '';
@@ -340,28 +335,34 @@ export class HomeComponent {
   }
 
   disableboardFields(): void {
-      this.boardFields[this.i].boardName.disabled = true;
-      this.boardFields[this.i].drawNumber.disabled = true;
-      this.boardFields[this.i].updateRate.disabled = true;
-      this.boardFields[this.i].hardware.disabled = true;
+      this.board.boardName.disabled = true;
+      this.board.drawNumber.disabled = true;
+      this.board.updateRate.disabled = true;
+      this.board.hardware.disabled = true;
   }
 
   switchBoard(boardindex: number) {
-    console.log(boardindex);
+    console.log('BJ was here: switch board.');
+    console.log('selected board index', boardindex);
     this.dataService.data.current_board = boardindex;
 
     this.board = this.dataService.data.boards[boardindex];
+    console.log('this board is : ', this.board);
+    console.log('this board\'s parent is : ', this.boardFields);
+    // close the side nav after board selection?
   }
   openNav(){
-    let bar = document.getElementById("bar")
+    console.log("Board Side Panel opened.");// ToDo(BJ): something a bit more meaningful should be here. function name?
+    let bar = document.getElementById("bar");
     if (bar){
-      bar.style.width = "250px"
+      bar.style.width = "250px" // ToDo(BJ): should size to fit image and text of the subcomponents
       document.getElementById("main")!.style.marginLeft ="250px";
     }
 
     // 
  } 
   closeNav(){
+    console.log("Board Side Panel closed.");
     document.getElementById("bar")!.style.width = "0"
     document.getElementById("main")!.style.marginLeft = "0";
   }

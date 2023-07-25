@@ -22,60 +22,24 @@ export class NewBoardComponent {
     public dataService: DataService,
     @Inject(MAT_DIALOG_DATA) public boardFields: IBoardObject[]
   ) {
-    this.boardFields = [{index: 0,
-      boardName:{
-        label: 'Board Name',
-        model: '',
-        placeholder: '',
-        disabled: false
-      },
-      drawNumber: {
-        label: 'Drawing Number',
-        model: '',
-        placeholder: '',
-        disabled: false
-      },
-      updateRate: {
-        label: 'Update Rate',
-        model: '',
-        placeholder: '',
-        disabled: false
-      },
-      hardware: {
-        label: 'Hardware',
-        model: '',
-        placeholder: '',
-        disabled: false
-      },
-      comment: {
-        label: 'Comment',
-        model: '',
-        placeholder: '',
-        disabled: false
-      },
-      variables: [],
-      disabled: true}];
+    this.boardFields = [];
   }
-  saveData(): void {
-    const boardName = this.boardFields[0].boardName.model;
-    const boardData: string = JSON.stringify({ boardName });
-    localStorage.setItem('boardData', boardData);
-    console.log('Saved boardname:', boardName);
-    this.dialogRef.close(this.boardFields);
-  }
+  // called when "Add Board" in side bar in clicked.
   openBoard() {
+    console.log('BJ was here - open board.');
     let index = this.dataService.data.boards.length;
+    let boardindex = this.dataService.data.boards.length;
     let newBoard: IBoardObject = {
       index: index,
-      boardName: {
+      boardName:{
         label: 'Board Name',
-        model: '',
+        model: this.boardName,
         placeholder: '',
         disabled: false
       },
       drawNumber: {
         label: 'Drawing Number',
-        model: '',
+        model: this.drawNumber,
         placeholder: '',
         disabled: false
       },
@@ -86,7 +50,7 @@ export class NewBoardComponent {
         disabled: false
       },
       hardware: {
-        label: 'Hardware',
+        label: 'Hardware Version',
         model: '',
         placeholder: '',
         disabled: false
@@ -98,9 +62,15 @@ export class NewBoardComponent {
         disabled: false
       },
       variables: [],
-      disabled: true
+        disabled: false
     };
-  
+    if (this.boardFields.length > 0) {
+      const boardName = this.boardFields[boardindex].boardName.model;
+      const jsonData: string = JSON.stringify({ boardName });
+      localStorage.setItem('boarddata', jsonData);
+      console.log('Saved boardname:', boardName);
+    }
+    console.log('new board', newBoard)
     this.dataService.data.boards.push({ ...newBoard });
     this.boardFields.push({ ...newBoard });
     this.dialogRef.close();

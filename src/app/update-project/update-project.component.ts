@@ -25,6 +25,7 @@ export class UpdateProjectComponent {
     const username = this.projectFields.username.model;
     const jsonData: string = JSON.stringify({ username });
     localStorage.setItem('data', jsonData);
+    console.log('BJ was here - update project');
     console.log('Saved username:', username);
     this.dialogRef.close(this.projectFields);
   }

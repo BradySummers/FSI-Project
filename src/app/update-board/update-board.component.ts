@@ -17,9 +17,10 @@ export class UpdateBoardComponent {
 
   saveData(): void {
     const boardName = this.boardFields.boardName.model;
-    const boardData: string = JSON.stringify({ boardName });
-    localStorage.setItem('boardData', boardData);
-    console.log('Saved boardname:', boardName);
+    const jsonData: string = JSON.stringify({ boardName });
+    localStorage.setItem('data', jsonData);
+    console.log('BJ was here - update board');
+    console.log('Saved username:', boardName);
     this.dialogRef.close(this.boardFields);
   }
 }
