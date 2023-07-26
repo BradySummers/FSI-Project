@@ -19,7 +19,7 @@ mat-label{
     background-color: root; --runway-grey:
 }
 .home{
-    /* background-color: var(--navigator-blue); */
+    background-color: var(--navigator-blue);
 }
 .sidebar {
     height: 100%;

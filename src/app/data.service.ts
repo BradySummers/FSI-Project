@@ -45,7 +45,7 @@ export interface IDataObject {
 export class DataService {
   constructor() { }
   data: IDataObject = {
-    current_board: 0,
+    current_board: 0, // index?
     project: {
       username:{
         label: '',
@@ -141,6 +141,7 @@ export class DataService {
       }
     ]
   };
+  
   current_board: number = 0;
 }
 

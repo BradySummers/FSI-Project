@@ -1,10 +1,11 @@
 <div id="bar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" (click)="closeNav()"><mat-icon>close</mat-icon></a>
-    <ul *ngIf="boardFields[i].boardName.model">
+    <ul *ngIf="boardFields.boardName.model">
         <li class="pb-2" *ngFor="let board of dataService.data.boards; let i = index">
-            <button class="btn btn-light" href="#" (click)="switchBoard(i)" [disabled]="boardFields[i].boardName.disabled">{{ boardFields[i].boardName.model }}</button>
+            <div>{{board.boardName.model}}</div>
+            <button class="btn btn-light" href="#" (click)="switchBoard(i)" [disabled]="board.disabled">{{ board.boardName.model }}</button>
         </li>
-        <button class="btn btn-success" *ngIf="boardFields[i].boardName.model" (click)="openAddNewBoard()">Add Board</button>
+        <button class="btn btn-success" *ngIf="boardFields.boardName.model" (click)="openAddNewBoard()">Add Board</button>
     </ul>
     <ul><button class="btn btn-dark" (click)="openDialog()">Search</button></ul>
 </div>
@@ -69,42 +70,42 @@
             </div>
         </div>
         <p></p>
-        <div class="row" *ngIf="isVisible">
+        <div class="row" *ngIf="isVisible"  >
             <h2>Board Information</h2>
         </div>
         <div class="row" *ngIf="isVisible">
             <div class="col">
                 <mat-form-field appearance="fill" >
-                    <mat-label>{{ boardFields[0].boardName.label }}</mat-label>
-                    <input matInput [(ngModel)]="boardFields[0].boardName.model" boardName="board.boardName.model" placeholder="">
-                    <button mat-button *ngIf="boardFields[0].boardName.model" matSuffix mat-icon-button aria-label="Clear" (click)="boardFields[0].boardName.model = ''" [hidden]="!isButtonVisible" [disabled]="boardFields[0].boardName.disabled">
+                    <mat-label>{{ boardFields.boardName.label }}</mat-label>
+                    <input matInput [(ngModel)]="boardFields.boardName.model" placeholder="">
+                    <button mat-button *ngIf="boardFields.boardName.model" matSuffix mat-icon-button aria-label="Clear" (click)="boardFields.boardName.model = ''" [hidden]="!isButtonVisible" [disabled]="boardFields.boardName.disabled">
                         <mat-icon>close</mat-icon>
                     </button>
                     </mat-form-field>
             </div>
             <div class="col">
                 <mat-form-field appearance="fill">
-                    <mat-label>{{ boardFields[0].drawNumber.label }}</mat-label>
-                    <input matInput [(ngModel)]="boardFields[0].drawNumber.model" [ngModelOptions]="{standalone: true}" drawNumber="board.drawNumber.model" placeholder="" >
-                    <button mat-button *ngIf="boardFields[0].drawNumber.model" matSuffix mat-icon-button aria-label="Clear" (click)="boardFields[0].drawNumber.model = ''" [hidden]="!isButtonVisible" [disabled]="boardFields[0].drawNumber.disabled">
+                    <mat-label>{{ boardFields.drawNumber.label }}</mat-label>
+                    <input matInput [(ngModel)]="boardFields.drawNumber.model" [ngModelOptions]="{standalone: true}" drawNumber="board.drawNumber.model" placeholder="" >
+                    <button mat-button *ngIf="boardFields.drawNumber.model" matSuffix mat-icon-button aria-label="Clear" (click)="boardFields.drawNumber.model = ''" [hidden]="!isButtonVisible" [disabled]="boardFields.drawNumber.disabled">
                         <mat-icon>close</mat-icon>
                     </button>
                     </mat-form-field>
             </div>
             <div class="col">
                 <mat-form-field appearance="fill">
-                    <mat-label>{{ boardFields[0].updateRate.label }}</mat-label>
-                    <input matInput [(ngModel)]="boardFields[0].updateRate.model" [ngModelOptions]="{standalone: true}" updateRate="board.updateRate.model" placeholder="" >
-                    <button mat-button *ngIf="boardFields[0].updateRate.model" matSuffix mat-icon-button aria-label="Clear" (click)="boardFields[0].updateRate.model = ''" [hidden]="!isButtonVisible" [disabled]="boardFields[0].updateRate.disabled">
+                    <mat-label>{{ boardFields.updateRate.label }}</mat-label>
+                    <input matInput [(ngModel)]="boardFields.updateRate.model" [ngModelOptions]="{standalone: true}" updateRate="board.updateRate.model" placeholder="" >
+                    <button mat-button *ngIf="boardFields.updateRate.model" matSuffix mat-icon-button aria-label="Clear" (click)="boardFields.updateRate.model = ''" [hidden]="!isButtonVisible" [disabled]="boardFields.updateRate.disabled">
                         <mat-icon>close</mat-icon>
                     </button>
                 </mat-form-field>
             </div>
             <div class="col">  
                 <mat-form-field appearance="fill">
-                    <mat-label>{{ boardFields[0].hardware.label }}</mat-label>
-                    <input matInput [(ngModel)]="boardFields[0].hardware.model" [ngModelOptions]="{standalone: true}" hardware="board.hardware.model" placeholder="" >
-                    <button mat-button *ngIf="boardFields[0].hardware.model" matSuffix mat-icon-button aria-label="Clear" (click)="boardFields[0].hardware.model = ''" [hidden]="!isButtonVisible" [disabled]="boardFields[0].hardware.disabled">
+                    <mat-label>{{ boardFields.hardware.label }}</mat-label>
+                    <input matInput [(ngModel)]="boardFields.hardware.model" [ngModelOptions]="{standalone: true}" hardware="board.hardware.model" placeholder="" >
+                    <button mat-button *ngIf="boardFields.hardware.model" matSuffix mat-icon-button aria-label="Clear" (click)="boardFields.hardware.model = ''" [hidden]="!isButtonVisible" [disabled]="boardFields.hardware.disabled">
                         <mat-icon>close</mat-icon>
                     </button>
                 </mat-form-field>
@@ -112,11 +113,10 @@
             <div class="col">
                 <mat-form-field>
                     <mat-label>Comment</mat-label>
-                    <textarea matInput></textarea>
+                    <textarea matInput  [(ngModel)]="boardFields.comment.model" ></textarea>
                 </mat-form-field>
-            </div>
             <div class="col">
-                <button class="btn btn-light float-end" mat-button matSuffix mat-icon-button (click)="updateBoard()" [hidden]="!isVis">
+                <button class="btn btn-light float-end" mat-button matSuffix mat-icon-button (click)="updateBoard(dataService.data.current_board)" [hidden]="!isVis">
                     <mat-icon>edit</mat-icon>
                 </button>
             </div>
