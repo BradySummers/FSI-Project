@@ -2,11 +2,11 @@
     font-family: navine;
     src: url(assets/NavineDemo-SemiCondensed.ttf) ;
 }
+html, body { height: 100%; }
 body { 
     margin: 0;
     font-family: navine;
-    color: var(--navigator-blue) !important;
-    background-color:  var(--runway-grey) !important;
+    color: var(--navigator-blue);
 }
 
 :root {

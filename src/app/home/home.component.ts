@@ -157,6 +157,7 @@ export class HomeComponent {
   }
 
   updateProject(): void {
+    console.log('BJ was here - update project');
     const dialogRef = this.dialog.open(UpdateProjectComponent, {
       data: (JSON.parse(JSON.stringify(this.projectFields[0])))
     });
@@ -196,6 +197,7 @@ export class HomeComponent {
   }
 
   createBoard(): void {
+    console.log('BJ was here - create board.');
     let index = this.dataService.data.boards.length;
     // this.boardFields.push({
     //   index: index,
@@ -366,7 +368,7 @@ export class HomeComponent {
     console.log("Board Side Panel opened.");// ToDo(BJ): something a bit more meaningful should be here. function name?
     let bar = document.getElementById("bar")
     if (bar){
-      bar.style.width = "250px"
+      bar.style.width = "250px" // ToDo(BJ): should size to fit image and text of the subcomponents
       document.getElementById("main")!.style.marginLeft ="250px";
     }
 
